@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   console.log(location)
   axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?', {
     params: {
-      key: 'AIzaSyDl_k1hquEPQpUcQBoMi4CvIt0uqeLH2cs',
+      key: process.env.GOOGLE_API_KEY,
       query: location,
       type : 'restaurant',
       region: 'th'

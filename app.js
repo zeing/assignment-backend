@@ -3,6 +3,7 @@ const express = require('express');
 const httpErrors = require('http-errors');
 const logger = require('morgan');
 const path = require('path');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 
