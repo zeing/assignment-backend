@@ -6,6 +6,7 @@ const path = require('path');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
+const SCGRouter = require('./routes/scg');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', indexRouter);
+app.use('/scg', SCGRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
