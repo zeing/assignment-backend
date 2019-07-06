@@ -10,5 +10,10 @@ client.on('error', (err) => {
     console.log("Error " + err)
 });
 
-
+// export const setCache = (key, data) => {
+//     return redis.set(key, JSON.stringify(data), (err) => {
+//         return err
+//     });
+//
+// };
 module.exports = client;
