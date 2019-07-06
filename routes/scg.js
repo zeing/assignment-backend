@@ -4,17 +4,17 @@ const router = Router();
 const redis = require('../redis');
 
 const googlePlaceKey = process.env.REDIS_GOOGLE_PLACE_KEY;
-const setCache = (data) => {
-    return redis.set(googlePlaceKey, JSON.stringify(data), (err) => {
+const setCache = (key,data) => {
+    return redis.set(key, JSON.stringify(data), (err) => {
         return err
     });
 }
 
-function getCache() {
+function getCache(key) {
     const promise = new Promise((resolve, reject) => {
-        redis.get(googlePlaceKey, (err, placeObj) => {
+        redis.get(key, (err, placeObj) => {
             if (!placeObj) {
-                // console.log('no');
+                console.log('no');
                 resolve(null)
             } else {
                 // console.log('มี', JSON.parse(placeObj));
@@ -29,7 +29,7 @@ function getCache() {
 router.get('/', async (req, res) => {
     let location = req.query.location;
     // console.log(location)
-    let placeObj = await getCache();
+    let placeObj = await getCache(location);
     if (!placeObj) {
         axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?', {
             params: {
@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
         })
             .then(data => {
                 // console.log(data.data.results);
-                setCache(data.data.results);
+                setCache(location,data.data.results);
                 res.json({source: 'api', result: data.data.results})
             });
     } else {
