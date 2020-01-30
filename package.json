@@ -5,10 +5,16 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/start",
-    "test": "mocha --recursive"
+    "start": "node ./dist/bin/www.js",
+    "test": "mocha --recursive",
+    "build": "npm run clean && mkdir dist && babel src -s -d dist --copy-files",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "axios": "^0.19.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
